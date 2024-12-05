@@ -16,4 +16,19 @@ class Toilet(db.Model):
     ToiletBuildDate = db.Column(db.DateTime, nullable=True, default=None)  # Optional
 
     def __repr__(self):
-        return f'<Toilet {self.ToiletName}>'
+        return (
+            f"<Toilet(ToiletID={self.ToiletID}, ToiletName='{self.ToiletName}', "
+            f"ToiletDescription='{self.ToiletDescription}', ToiletAddressLine1='{self.ToiletAddressLine1}', "
+            f"ToiletAddressLine2='{self.ToiletAddressLine2}', ToiletCity='{self.ToiletCity}', "
+            f"ToiletState='{self.ToiletState}', ToiletPincode='{self.ToiletPincode}', "
+            f"ToiletGender='{self.ToiletGender}', ToiletRating={self.ToiletRating}, "
+            f"ToiletCharges={self.ToiletCharges}, ToiletComments='{self.ToiletComments}', "
+            f"ToiletBuildDate={self.ToiletBuildDate})>"
+        )
+
+    def model_to_dict(obj):
+        """
+        Convert a SQLAlchemy model object into a dictionary, excluding internal SQLAlchemy state.
+        """
+        # Extract only the actual columns from the SQLAlchemy model
+        return {column.name: getattr(obj, column.name) for column in obj.__table__.columns}
