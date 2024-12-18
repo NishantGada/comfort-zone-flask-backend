@@ -1,7 +1,9 @@
 from dbconfig import db
+import uuid
+from datetime import datetime
 
 class Toilet(db.Model):
-    ToiletID = db.Column(db.Integer, primary_key=True)
+    ToiletID = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     ToiletName = db.Column(db.String(100), nullable=False)
     ToiletDescription = db.Column(db.Text, nullable=True)
     ToiletAddressLine1 = db.Column(db.String(200), nullable=False)
@@ -14,6 +16,7 @@ class Toilet(db.Model):
     ToiletCharges = db.Column(db.Float, nullable=False)  # Numerical value
     ToiletComments = db.Column(db.Text, nullable=True)
     ToiletBuildDate = db.Column(db.DateTime, nullable=True, default=None)  # Optional
+    ToiletAddDate = db.Column(db.DateTime, nullable=True, default=datetime.now)
 
     def __repr__(self):
         return (
